@@ -1,101 +1,31 @@
-# Byte-compiled / optimized / DLL files
-__pycache__/
-*.py[cod]
-*$py.class
+# -*- coding: UTF-8 -*-
+# chcp 936
+import urllib2
+import urllib
+import requests
+from bs4 import BeautifulSoup
+import re,os
+import mechanize
+from tld import get_tld
+pd = 1
+nu = 1
+for pd in range(1,42):
+	pa=str(pd)
+	headers = {'user-agent':'Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.9.0.1) Gecko/2008071615 Fedora/3.0.1-1.fc9 Firefox/3.0.1'} # 加入了cookie和user-agent
+	url = 'http://app.mi.com/topList?page='+pa  #个人中心
+	res = requests.get(url,headers=headers).content #url为上面的url, headers中包含了cookie和user-agent
+	with open('123.txt','w+') as f:
+		f.write(res)
+	st = BeautifulSoup(res,'lxml')
+#print st.prettify()
+#print st.find_all(re.compile('h5'))[0].string
 
-# C extensions
-*.so
-
-# Distribution / packaging
-.Python
-env/
-build/
-develop-eggs/
-dist/
-downloads/
-eggs/
-.eggs/
-lib/
-lib64/
-parts/
-sdist/
-var/
-wheels/
-*.egg-info/
-.installed.cfg
-*.egg
-
-# PyInstaller
-#  Usually these files are written by a python script from a template
-#  before PyInstaller builds the exe, so as to inject date/other infos into it.
-*.manifest
-*.spec
-
-# Installer logs
-pip-log.txt
-pip-delete-this-directory.txt
-
-# Unit test / coverage reports
-htmlcov/
-.tox/
-.coverage
-.coverage.*
-.cache
-nosetests.xml
-coverage.xml
-*.cover
-.hypothesis/
-
-# Translations
-*.mo
-*.pot
-
-# Django stuff:
-*.log
-local_settings.py
-
-# Flask stuff:
-instance/
-.webassets-cache
-
-# Scrapy stuff:
-.scrapy
-
-# Sphinx documentation
-docs/_build/
-
-# PyBuilder
-target/
-
-# Jupyter Notebook
-.ipynb_checkpoints
-
-# pyenv
-.python-version
-
-# celery beat schedule file
-celerybeat-schedule
-
-# SageMath parsed files
-*.sage.py
-
-# dotenv
-.env
-
-# virtualenv
-.venv
-venv/
-ENV/
-
-# Spyder project settings
-.spyderproject
-.spyproject
-
-# Rope project settings
-.ropeproject
-
-# mkdocs documentation
-/site
-
-# mypy
-.mypy_cache/
+	num = 1
+	
+	for ae in st.select('li > h5 > a'):
+		print nu,'.',ae.string
+		with open('a123.txt','a') as fff:
+			tt=str(ae.get_text())
+			fff.write(str(nu)+str('.')+ae.get_text()+ '\n')
+		nu =nu+1
+	pd =pd+1
